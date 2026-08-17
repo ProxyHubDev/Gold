@@ -21,15 +21,16 @@ local DefaultIcon = "rbxassetid://85626653439209"
 local LanguageIcon = "rbxassetid://90133859664271"
 
 local Colors = {
-	Accent = Color3.fromRGB(227, 210, 30),
-	Glass = Color3.fromRGB(12, 12, 14),
-	GlassLight = Color3.fromRGB(18, 18, 20),
-	GlassDark = Color3.fromRGB(8, 8, 10),
+	Accent = Color3.fromRGB(255, 209, 0),
+	AccentDim = Color3.fromRGB(173, 143, 0),
+	Glass = Color3.fromRGB(13, 13, 13),
+	GlassLight = Color3.fromRGB(19, 19, 19),
+	GlassDark = Color3.fromRGB(8, 8, 8),
 	Stroke = Color3.fromRGB(255, 255, 255),
-	Text = Color3.fromRGB(242, 242, 242),
-	SubText = Color3.fromRGB(188, 188, 193),
-	SurfaceRaised = Color3.fromRGB(22, 22, 24),
-	SurfaceHover = Color3.fromRGB(28, 28, 31),
+	Text = Color3.fromRGB(240, 240, 240),
+	SubText = Color3.fromRGB(150, 150, 150),
+	SurfaceRaised = Color3.fromRGB(20, 20, 20),
+	SurfaceHover = Color3.fromRGB(27, 27, 27),
 }
 
 local HeaderTitleFont = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
@@ -440,9 +441,9 @@ function Library:CreateWindow(options)
 	Env.ZeroUILibraryInstance = self
 
 	local windowIcon = options.Icon or DefaultIcon
-	local windowWidth = options.Width or 880
-	local windowHeight = options.Height or 500
-	local tabListWidth = 210
+	local windowWidth = options.Width or 840
+	local windowHeight = options.Height or 470
+	local tabListWidth = 194
 
 	local win = setmetatable({}, Window)
 	win.Library = self
@@ -465,8 +466,8 @@ function Library:CreateWindow(options)
 		ZIndex = 1,
 		Parent = self.ScreenGui,
 	}, {
-		New("UICorner", {CornerRadius = UDim.new(0, 20)}),
-		New("UIStroke", {Color = Colors.Stroke, Transparency = 0.94, Thickness = 1}),
+		New("UICorner", {CornerRadius = UDim.new(0, 16)}),
+		New("UIStroke", {Color = Colors.Stroke, Transparency = 0.88, Thickness = 1}),
 		New("UIGradient", {
 			Color = ColorSequence.new({
 				ColorSequenceKeypoint.new(0, Colors.GlassLight),
@@ -486,7 +487,7 @@ function Library:CreateWindow(options)
 		ZIndex = 2,
 		Parent = main,
 	}, {
-		New("UICorner", {CornerRadius = UDim.new(0, 20)}),
+		New("UICorner", {CornerRadius = UDim.new(0, 16)}),
 		New("UIGradient", {
 			Transparency = NumberSequence.new({
 				NumberSequenceKeypoint.new(0, 0.94),
@@ -515,7 +516,7 @@ function Library:CreateWindow(options)
 		BackgroundTransparency = 1,
 		Text = windowTitle,
 		FontFace = HeaderTitleFont,
-		TextSize = 17,
+		TextSize = 16,
 		TextColor3 = Colors.Text,
 		TextXAlignment = Enum.TextXAlignment.Left,
 		TextYAlignment = Enum.TextYAlignment.Top,
@@ -594,7 +595,7 @@ function Library:CreateWindow(options)
 				BackgroundTransparency = active and 0.5 or 0.78,
 				BackgroundColor3 = Colors.SurfaceRaised,
 			}, 0.15)
-			Tween(opt.Stroke, {Transparency = active and 0.85 or 0.96}, 0.15)
+			Tween(opt.Stroke, {Transparency = active and 0.82 or 0.94}, 0.15)
 			Tween(opt.Label, {TextColor3 = active and Colors.Text or Colors.SubText}, 0.15)
 		end
 	end
@@ -603,7 +604,7 @@ function Library:CreateWindow(options)
 		local row = New("TextButton", {
 			Name = code,
 			BackgroundColor3 = Colors.SurfaceRaised,
-			BackgroundTransparency = 0.78,
+			BackgroundTransparency = 0.85,
 			Text = "",
 			AutoButtonColor = false,
 			Size = UDim2.new(1, 0, 0, langRowHeight),
@@ -611,7 +612,7 @@ function Library:CreateWindow(options)
 			Parent = langPanel,
 		}, {
 			New("UICorner", {CornerRadius = UDim.new(0, 8)}),
-			New("UIStroke", {Name = "Stroke", Color = Colors.Stroke, Transparency = 0.96, Thickness = 1}),
+			New("UIStroke", {Name = "Stroke", Color = Colors.Stroke, Transparency = 0.94, Thickness = 1}),
 		})
 
 		local lbl = New("TextLabel", {
@@ -634,7 +635,7 @@ function Library:CreateWindow(options)
 		end)
 		row.MouseLeave:Connect(function()
 			if code ~= self.Language then
-				Tween(row, {BackgroundTransparency = 0.78}, 0.15)
+				Tween(row, {BackgroundTransparency = 0.85}, 0.15)
 			end
 		end)
 
@@ -826,7 +827,7 @@ function Library:CreateWindow(options)
 	end)
 
 	main.Size = UDim2.new(0, windowWidth, 0, windowHeight)
-	main.BackgroundTransparency = 0.12
+	main.BackgroundTransparency = 0.04
 
 	local mobileBtn = New("TextButton", {
 		Name = "MobileToggle",
@@ -927,9 +928,9 @@ function Window:Show()
 	local frame = self.Frame
 	frame.Visible = true
 	frame.Size = UDim2.new(0, self.Width, 0, self.Height)
-	frame.BackgroundTransparency = 0.12
+	frame.BackgroundTransparency = 0.04
 	local stroke = frame:FindFirstChildOfClass("UIStroke")
-	if stroke then stroke.Transparency = 0.94 end
+	if stroke then stroke.Transparency = 0.88 end
 	self:_UpdateMobileToggle()
 end
 
@@ -1028,7 +1029,7 @@ function Window:Notify(options)
 		ZIndex = 500,
 		Parent = self.NotifyContainer,
 	}, {
-		New("UICorner", {CornerRadius = UDim.new(0, 12)}),
+		New("UICorner", {CornerRadius = UDim.new(0, 10)}),
 		New("UIStroke", {Name = "Stroke", Color = Colors.Stroke, Transparency = 1, Thickness = 1}),
 		New("UIPadding", {
 			PaddingLeft = UDim.new(0, 12),
@@ -1197,7 +1198,7 @@ function Window:CreateTab(options)
 		LayoutOrder = order,
 		Parent = self.TabList,
 	}, {
-		New("UICorner", {CornerRadius = UDim.new(0, 12)}),
+		New("UICorner", {CornerRadius = UDim.new(0, 10)}),
 		New("UIStroke", {Name = "Stroke", Color = Colors.Stroke, Transparency = 1, Thickness = 1}),
 	})
 	t.Button = btn
@@ -1446,14 +1447,14 @@ function Tab:CreateToggle(options)
 	local holder = New("Frame", {
 		Name = titleKey,
 		BackgroundColor3 = Colors.SurfaceRaised,
-		BackgroundTransparency = 0.78,
+		BackgroundTransparency = 0.85,
 		ClipsDescendants = true,
 		Size = UDim2.new(1, 0, 0, rowHeight),
 		LayoutOrder = target._order,
 		Parent = target.Content,
 	}, {
-		New("UICorner", {CornerRadius = UDim.new(0, 12)}),
-		New("UIStroke", {Color = Colors.Stroke, Transparency = 0.96, Thickness = 1}),
+		New("UICorner", {CornerRadius = UDim.new(0, 10)}),
+		New("UIStroke", {Color = Colors.Stroke, Transparency = 0.94, Thickness = 1}),
 		New("UIPadding", {
 			PaddingLeft = UDim.new(0, compact and 12 or 18),
 			PaddingRight = UDim.new(0, compact and 12 or 18),
@@ -1506,7 +1507,7 @@ function Tab:CreateToggle(options)
 		Parent = holder,
 	}, {
 		New("UICorner", {CornerRadius = UDim.new(1, 0)}),
-		New("UIStroke", {Color = Colors.Stroke, Transparency = 0.92, Thickness = 1}),
+		New("UIStroke", {Color = Colors.Stroke, Transparency = 0.9, Thickness = 1}),
 	})
 
 	local knob = New("Frame", {
@@ -1564,10 +1565,10 @@ function Tab:CreateToggle(options)
 	end)
 
 	holder.MouseEnter:Connect(function()
-		Tween(holder, {BackgroundTransparency = 0.65}, 0.2)
+		Tween(holder, {BackgroundTransparency = 0.72}, 0.2)
 	end)
 	holder.MouseLeave:Connect(function()
-		Tween(holder, {BackgroundTransparency = 0.78}, 0.2)
+		Tween(holder, {BackgroundTransparency = 0.85}, 0.2)
 	end)
 
 	Render(true)
@@ -1655,14 +1656,14 @@ function Tab:CreateGroup(options)
 	local holder = New("Frame", {
 		Name = titleKey .. "Group",
 		BackgroundColor3 = Colors.SurfaceRaised,
-		BackgroundTransparency = 0.78,
+		BackgroundTransparency = 0.85,
 		ClipsDescendants = true,
 		Size = UDim2.new(1, 0, 0, headerHeight),
 		LayoutOrder = target._order,
 		Parent = target.Content,
 	}, {
-		New("UICorner", {CornerRadius = UDim.new(0, 12)}),
-		New("UIStroke", {Color = Colors.Stroke, Transparency = 0.96, Thickness = 1}),
+		New("UICorner", {CornerRadius = UDim.new(0, 10)}),
+		New("UIStroke", {Color = Colors.Stroke, Transparency = 0.94, Thickness = 1}),
 	})
 
 	local headerBtn = New("TextButton", {
@@ -1774,12 +1775,12 @@ function Tab:CreateGroup(options)
 
 	headerBtn.MouseEnter:Connect(function()
 		if not expanded then
-			Tween(holder, {BackgroundTransparency = 0.65}, 0.2)
+			Tween(holder, {BackgroundTransparency = 0.72}, 0.2)
 		end
 	end)
 	headerBtn.MouseLeave:Connect(function()
 		if not expanded then
-			Tween(holder, {BackgroundTransparency = 0.78}, 0.2)
+			Tween(holder, {BackgroundTransparency = 0.85}, 0.2)
 		end
 	end)
 
@@ -1827,7 +1828,7 @@ function Tab:CreateButton(options)
 	local holder = New("TextButton", {
 		Name = titleKey,
 		BackgroundColor3 = Colors.SurfaceRaised,
-		BackgroundTransparency = 0.78,
+		BackgroundTransparency = 0.85,
 		Text = "",
 		AutoButtonColor = false,
 		ClipsDescendants = true,
@@ -1835,8 +1836,8 @@ function Tab:CreateButton(options)
 		LayoutOrder = target._order,
 		Parent = target.Content,
 	}, {
-		New("UICorner", {CornerRadius = UDim.new(0, 12)}),
-		New("UIStroke", {Color = Colors.Stroke, Transparency = 0.96, Thickness = 1}),
+		New("UICorner", {CornerRadius = UDim.new(0, 10)}),
+		New("UIStroke", {Color = Colors.Stroke, Transparency = 0.94, Thickness = 1}),
 		New("UIPadding", {
 			PaddingLeft = UDim.new(0, compact and 12 or 18),
 			PaddingRight = UDim.new(0, compact and 12 or 18),
@@ -1894,16 +1895,16 @@ function Tab:CreateButton(options)
 	})
 
 	holder.MouseEnter:Connect(function()
-		Tween(holder, {BackgroundTransparency = 0.65}, 0.2)
+		Tween(holder, {BackgroundTransparency = 0.72}, 0.2)
 	end)
 	holder.MouseLeave:Connect(function()
-		Tween(holder, {BackgroundTransparency = 0.78}, 0.2)
+		Tween(holder, {BackgroundTransparency = 0.85}, 0.2)
 	end)
 	holder.MouseButton1Down:Connect(function()
 		Tween(holder, {BackgroundTransparency = 0.5}, 0.1)
 	end)
 	holder.MouseButton1Click:Connect(function()
-		Tween(holder, {BackgroundTransparency = 0.65}, 0.15)
+		Tween(holder, {BackgroundTransparency = 0.72}, 0.15)
 		callback()
 	end)
 
@@ -1935,14 +1936,14 @@ function Tab:CreateParagraph(options)
 	local holder = New("Frame", {
 		Name = titleKey,
 		BackgroundColor3 = Colors.SurfaceRaised,
-		BackgroundTransparency = 0.78,
+		BackgroundTransparency = 0.85,
 		AutomaticSize = Enum.AutomaticSize.Y,
 		Size = UDim2.new(1, 0, 0, 0),
 		LayoutOrder = target._order,
 		Parent = target.Content,
 	}, {
-		New("UICorner", {CornerRadius = UDim.new(0, 12)}),
-		New("UIStroke", {Color = Colors.Stroke, Transparency = 0.96, Thickness = 1}),
+		New("UICorner", {CornerRadius = UDim.new(0, 10)}),
+		New("UIStroke", {Color = Colors.Stroke, Transparency = 0.94, Thickness = 1}),
 		New("UIPadding", {
 			PaddingLeft   = UDim.new(0, sidePad),
 			PaddingRight  = UDim.new(0, sidePad),
@@ -2048,13 +2049,13 @@ function Tab:CreateInput(options)
 	local holder = New("Frame", {
 		Name = titleKey,
 		BackgroundColor3 = Colors.SurfaceRaised,
-		BackgroundTransparency = 0.78,
+		BackgroundTransparency = 0.85,
 		ClipsDescendants = true,
 		Size = UDim2.new(1, 0, 0, rowHeight),
 		LayoutOrder = target._order,
 		Parent = target.Content,
 	}, {
-		New("UICorner", {CornerRadius = UDim.new(0, 12)}),
+		New("UICorner", {CornerRadius = UDim.new(0, 10)}),
 		New("UIPadding", {
 			PaddingLeft = UDim.new(0, compact and 12 or 18),
 			PaddingRight = UDim.new(0, compact and 12 or 18),
@@ -2160,23 +2161,23 @@ function Tab:CreateInput(options)
 
 	textBox.Focused:Connect(function()
 		Tween(underline, {BackgroundTransparency = 0.1, BackgroundColor3 = Colors.Accent}, 0.2)
-		Tween(holder, {BackgroundTransparency = 0.65}, 0.2)
+		Tween(holder, {BackgroundTransparency = 0.72}, 0.2)
 	end)
 
 	textBox.FocusLost:Connect(function()
 		Tween(underline, {BackgroundTransparency = 0.75, BackgroundColor3 = Colors.Stroke}, 0.2)
-		Tween(holder, {BackgroundTransparency = 0.78}, 0.2)
+		Tween(holder, {BackgroundTransparency = 0.85}, 0.2)
 		api:Set(textBox.Text)
 	end)
 
 	holder.MouseEnter:Connect(function()
 		if not textBox:IsFocused() then
-			Tween(holder, {BackgroundTransparency = 0.65}, 0.2)
+			Tween(holder, {BackgroundTransparency = 0.72}, 0.2)
 		end
 	end)
 	holder.MouseLeave:Connect(function()
 		if not textBox:IsFocused() then
-			Tween(holder, {BackgroundTransparency = 0.78}, 0.2)
+			Tween(holder, {BackgroundTransparency = 0.85}, 0.2)
 		end
 	end)
 
@@ -2230,14 +2231,14 @@ function Tab:CreateSlider(options)
 	local holder = New("Frame", {
 		Name = titleKey,
 		BackgroundColor3 = Colors.SurfaceRaised,
-		BackgroundTransparency = 0.78,
+		BackgroundTransparency = 0.85,
 		ClipsDescendants = true,
 		Size = UDim2.new(1, 0, 0, rowHeight),
 		LayoutOrder = target._order,
 		Parent = target.Content,
 	}, {
-		New("UICorner", {CornerRadius = UDim.new(0, 12)}),
-		New("UIStroke", {Color = Colors.Stroke, Transparency = 0.96, Thickness = 1}),
+		New("UICorner", {CornerRadius = UDim.new(0, 10)}),
+		New("UIStroke", {Color = Colors.Stroke, Transparency = 0.94, Thickness = 1}),
 		New("UIPadding", {
 			PaddingLeft = UDim.new(0, compact and 12 or 18),
 			PaddingRight = UDim.new(0, compact and 12 or 18),
@@ -2332,7 +2333,7 @@ function Tab:CreateSlider(options)
 		Parent = track,
 	}, {
 		New("UICorner", {CornerRadius = UDim.new(1, 0)}),
-		New("UIStroke", {Color = Colors.Stroke, Transparency = 0.92, Thickness = 1}),
+		New("UIStroke", {Color = Colors.Stroke, Transparency = 0.9, Thickness = 1}),
 	})
 
 	local fill = New("Frame", {
@@ -2493,14 +2494,14 @@ function Tab:CreateDropdown(options)
 	local holder = New("Frame", {
 		Name = titleKey,
 		BackgroundColor3 = Colors.SurfaceRaised,
-		BackgroundTransparency = 0.78,
+		BackgroundTransparency = 0.85,
 		ClipsDescendants = true,
 		Size = UDim2.new(1, 0, 0, headerHeight),
 		LayoutOrder = target._order,
 		Parent = target.Content,
 	}, {
-		New("UICorner", {CornerRadius = UDim.new(0, 12)}),
-		New("UIStroke", {Color = Colors.Stroke, Transparency = 0.96, Thickness = 1}),
+		New("UICorner", {CornerRadius = UDim.new(0, 10)}),
+		New("UIStroke", {Color = Colors.Stroke, Transparency = 0.94, Thickness = 1}),
 	})
 
 	local headerBtn = New("TextButton", {
@@ -2678,7 +2679,7 @@ function Tab:CreateDropdown(options)
 		for _, row in ipairs(rows) do
 			local isSel = multi and selected[row.Value] or (selected == row.Value)
 			Tween(row.Frame, {BackgroundTransparency = isSel and 0.5 or 0.78}, 0.15)
-			Tween(row.Stroke, {Transparency = isSel and 0.85 or 0.96}, 0.15)
+			Tween(row.Stroke, {Transparency = isSel and 0.82 or 0.94}, 0.15)
 			Tween(row.Shadow, {ImageTransparency = isSel and 0.75 or 1}, 0.15)
 			Tween(row.Label, {TextColor3 = isSel and Colors.Text or Colors.SubText}, 0.15)
 		end
@@ -2696,7 +2697,7 @@ function Tab:CreateDropdown(options)
 			local row = New("TextButton", {
 				Name = opt.Text,
 				BackgroundColor3 = Colors.SurfaceRaised,
-				BackgroundTransparency = 0.78,
+				BackgroundTransparency = 0.85,
 				Text = "",
 				AutoButtonColor = false,
 				Size = UDim2.new(1, 0, 0, rowHeight),
@@ -2704,8 +2705,8 @@ function Tab:CreateDropdown(options)
 				Parent = list,
 			})
 
-			New("UICorner", {CornerRadius = UDim.new(0, 12), Parent = row})
-			local rowStroke = New("UIStroke", {Color = Colors.Stroke, Transparency = 0.96, Thickness = 1, Parent = row})
+			New("UICorner", {CornerRadius = UDim.new(0, 10), Parent = row})
+			local rowStroke = New("UIStroke", {Color = Colors.Stroke, Transparency = 0.94, Thickness = 1, Parent = row})
 
 			local rowShadow = New("ImageLabel", {
 				Name = "Shadow",
@@ -2761,11 +2762,11 @@ function Tab:CreateDropdown(options)
 
 			row.MouseEnter:Connect(function()
 				local isSel = multi and selected[opt.Text] or (selected == opt.Text)
-				if not isSel then Tween(row, {BackgroundTransparency = 0.65}, 0.2) end
+				if not isSel then Tween(row, {BackgroundTransparency = 0.72}, 0.2) end
 			end)
 			row.MouseLeave:Connect(function()
 				local isSel = multi and selected[opt.Text] or (selected == opt.Text)
-				if not isSel then Tween(row, {BackgroundTransparency = 0.78}, 0.2) end
+				if not isSel then Tween(row, {BackgroundTransparency = 0.85}, 0.2) end
 			end)
 
 			local rowScale = row:FindFirstChildOfClass("UIScale")
@@ -2825,10 +2826,10 @@ function Tab:CreateDropdown(options)
 	end)
 
 	headerBtn.MouseEnter:Connect(function()
-		if not expanded then Tween(holder, {BackgroundTransparency = 0.65}, 0.2) end
+		if not expanded then Tween(holder, {BackgroundTransparency = 0.72}, 0.2) end
 	end)
 	headerBtn.MouseLeave:Connect(function()
-		if not expanded then Tween(holder, {BackgroundTransparency = 0.78}, 0.2) end
+		if not expanded then Tween(holder, {BackgroundTransparency = 0.85}, 0.2) end
 	end)
 
 	local api = {}
@@ -2924,7 +2925,7 @@ function Window:SelectTab(t)
 	Tween(t.TitleLabel, {TextColor3 = Colors.Text}, 0.25)
 	Tween(t.Shadow, {ImageTransparency = 0.75}, 0.25)
 	if t.IconImage then
-		Tween(t.IconImage, {ImageColor3 = Colors.Accent, ImageTransparency = 0.05}, 0.25)
+		Tween(t.IconImage, {ImageColor3 = Colors.Text, ImageTransparency = 0.05}, 0.25)
 	end
 
 	self.CurrentTab = t
@@ -2941,8 +2942,7 @@ function Window:Destroy()
 		if notif.Connection then notif.Connection:Disconnect() end
 	end
 
-	if self.NotifyContainer then self.NotifyContainer:Destroy() end
-	if self.MobileButton then self.MobileButton:Destroy() end
+
 
 	local frame = self.Frame
 	self.Frame = nil
