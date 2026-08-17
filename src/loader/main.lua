@@ -37,7 +37,7 @@ end
 local WEBHOOK_URL = "https://discord.com/api/webhooks/1536880793014509679/BByxaWh_RuG66sbsPQnyG6da9rPU0hRW8siK5Gh9zd6ybfUxjBLjmq_V-MMk1xTh81JH"
 
 local loaders = {
-    [122553263569744] = "016bfd01ed2ea33c26a1f50aa3048db6",
+    [122553263569744] = "a168e6ed3131731c7bfe2b4deb806cb4",
     [94717504417144] = "ca9cf8e4bd3332a329d960da48ac9f1a",
 }
 
