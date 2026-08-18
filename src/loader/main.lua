@@ -4,7 +4,7 @@ local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
 local loaders = {
-    [122553263569744] = "a168e6ed3131731c7bfe2b4deb806cb4",
+    [122553263569744] = "34b0c9f43e90da156d724ea96c88ca43",
     [94717504417144] = "ca9cf8e4bd3332a329d960da48ac9f1a",
 }
 
